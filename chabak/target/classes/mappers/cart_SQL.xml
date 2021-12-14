@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.ex.mapper.CartMapper">
+
+ <select id="selectCartList" parameterType="com.spring.ex.dto.Cart_Dto" resultType="com.spring.ex.dto.Cart_Dto">
+	SELECT A.*
+		 ,b.*
+	FROM	 cart A
+			 ,market B
+	WHERE	 A.mar_num = B.mar_num
+			 AND m_num = #{m_num}
+		 
+</select>
+<insert id="insertCart"> 
+INSERT INTO cart(`m_num`, `mar_num`)
+VALUES (#{m_num}, #{num})
+</insert>
+
+<delete id="deleteCart">
+DELETE FROM
+	cart
+WHERE
+	cart_id = #{cart_id}
+	AND m_num = #{m_num}
+</delete>
+ 
+
+</mapper>

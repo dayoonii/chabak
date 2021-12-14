@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.ex.mapper.ReviewMapper">
+    
+    <select id="selectReviewList" parameterType="com.spring.ex.dto.ReviewDto" resultType="com.spring.ex.dto.ReviewDto">
+		SELECT   re_num
+			   , re_title
+			   , re_memo
+			   , re_author
+			   , re_regdate
+			   , re_Img
+		  FROM review
+		  ORDER BY re_num DESC
+    </select>
+    
+    <insert id="insertReview" useGeneratedKeys="true" keyProperty="re_num">
+	    INSERT INTO review(     
+	    						re_num
+	   					       , re_title 
+	   					       , re_memo 
+	   					       , re_author
+	   					       , re_regdate
+	   					       , re_Img )
+	                  VALUES(     
+	                 		   #{re_num}
+	                 		   , #{re_title,jdbcType=VARCHAR}
+	                 		   , #{re_memo,jdbcType=VARCHAR}
+	                 		   , #{re_author,jdbcType=VARCHAR}
+	                 		   , #{re_regdate, jdbcType=DATE}
+	                 		   , #{mar_Img}    )
+	                 		   
+    </insert>
+    
+    <update id="updateReview">
+      	UPDATE review
+		   SET re_title = #{re_title, jdbcType=VARCHAR},
+		   	   re_memo  = #{re_memo, jdbcType=VARCHAR}
+		 WHERE re_num = #{re_num};
+    </update>
+    
+    <delete id="deleteReview">
+    DELETE 
+		  FROM review
+		 WHERE re_num = #{re_num}
+    </delete>
+    
+    <select id="selectReviewByCode" parameterType="com.spring.ex.dto.ReviewDto" resultType="com.spring.ex.dto.ReviewDto">
+		SELECT  re_num, 
+		        re_title, 
+		        re_memo,
+		        re_author, 
+		        re_regdate,
+		        re_Img
+		  FROM review
+		 WHERE re_num = #{re_num}
+    </select>
+    
+    
+     <select id="selectReviewMember" parameterType="com.spring.ex.dto.ReviewDto" resultType="com.spring.ex.dto.ReviewDto">
+		SELECT  
+		        re_title, 
+		        re_memo,
+		        re_regdate
+		  FROM review
+		 WHERE m_num = #{m_num}
+    </select>    
+</mapper>
